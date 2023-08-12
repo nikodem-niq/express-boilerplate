@@ -1,5 +1,7 @@
 import app from './app';
-import { Environments, config } from './config/config';
+import { config } from './config/config';
 
-// const isDev = config.env === Environments.Development;
-console.log(config);
+// Server instance
+app.listen(config.port, () => {
+    console.log(`Server is listening on port : ${config.port}`);
+})
