@@ -30,6 +30,7 @@ class MoviesController implements IMoviesController {
 
         // Params parsing
         if(
+            matchedGenres.length === 0 ||
             typeof title !== 'string' ||
             typeof year !== 'number' ||
             typeof runtime !== 'number' ||
@@ -44,6 +45,11 @@ class MoviesController implements IMoviesController {
 
         
         const data = await moviesService.createMovie(matchedGenres, title, year, runtime, director, actors, plot, posterUrl);
+
+        if(data.error) {
+            res.status(400).json({error: data.error});
+            return;
+        }
 
         if(!data) {
             res.status(400).json({error: errorLocales.RESOURCE_ADD_ERROR});

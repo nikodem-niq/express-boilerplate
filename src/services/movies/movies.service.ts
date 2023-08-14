@@ -1,7 +1,8 @@
-import { readFile } from "../../helpers/helpers";
+import { readFile, writeFile } from "../../helpers/helpers";
 import { DatabaseSchema, Genres, IMoviesService, Movie } from "../../constants/types";
 import { errorLocales } from "../../constants/locales";
 import Joi from "joi";
+import { config } from "../../config/config";
 
 class MoviesService implements IMoviesService {
     async createMovie(genres: Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Promise<any> {
@@ -20,6 +21,13 @@ class MoviesService implements IMoviesService {
         }
         try {
             const validatedMovie = await this.validateMovie(movieObject);
+            // Save validated movie to db
+            const { movies } = db;
+            movies.push(validatedMovie);
+
+            const writeToDb = await this.writeDatabase(db);
+            console.log(writeToDb)
+            //
             return validatedMovie;
         } catch(error) {
             return { error: errorLocales.OBJECT_SCHEMA_VALIDATION_ERROR };
@@ -34,9 +42,9 @@ class MoviesService implements IMoviesService {
             year: Joi.number().required(),
             runtime: Joi.number().required(),
             director: Joi.string().max(255).required(),
-            actors: Joi.string().optional(),
-            plot: Joi.string().optional(),
-            posterUrl: Joi.string().optional(),
+            actors: Joi.string().optional().default(""),
+            plot: Joi.string().optional().default(""),
+            posterUrl: Joi.string().optional().default(""),
         })
 
         const {error, value} = properMovieSchema.validate(movie);
@@ -47,13 +55,23 @@ class MoviesService implements IMoviesService {
         return value;
     }
 
-    private async readDatabase() : Promise<any>  {
+    private async readDatabase() : Promise<any> {
         try {
-            const dbFile : DatabaseSchema = await readFile('data/db.json');
+            const dbFile : DatabaseSchema = await readFile(config.db_path);
             if(!dbFile) {
                 throw new Error(errorLocales.DATABASE_CONN_ERROR);
             }
             return dbFile;
+        } catch(error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    private async writeDatabase(content: DatabaseSchema) : Promise<any> {
+        try {
+            const writtenFile = await writeFile(config.db_path, content);
+            return writtenFile;
         } catch(error) {
             console.error(error);
             return null;

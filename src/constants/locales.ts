@@ -7,4 +7,5 @@ export const errorLocales = {
     DATABASE_CONN_ERROR: "Database connection couldnt be established",
     // Helpers error messages
     READ_FILE_ERROR: "Error with reading the file",
+    WRITE_FILE_ERROR: "Error with writing the file",
 }

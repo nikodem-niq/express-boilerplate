@@ -17,5 +17,6 @@ if (error) {
 export const config = {
     port: envValue.PORT,
     env: envValue.NODE_ENV,
+    db_path: 'data/db_b.json'
     // session_cookie_secret: envValue.SESSION_COOKIE_SECRET
 }
