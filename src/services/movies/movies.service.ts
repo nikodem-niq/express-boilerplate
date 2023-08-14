@@ -59,6 +59,8 @@ class MoviesService implements IMoviesService {
         return value;
     }
 
+    // @ToDo
+    // make readDb and writeDb global (helpers function)
     private async readDatabase() : Promise<any> {
         try {
             const dbFile : DatabaseSchema = await readFile(config.db_path);
