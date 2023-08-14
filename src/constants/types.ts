@@ -7,7 +7,7 @@ export interface IMoviesController {
 }
 
 export interface IMoviesService {
-    createMovie(genres : Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Movie
+    createMovie(genres : Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Promise<Movie>
 }
 // Enums
 export enum Genres {
@@ -47,3 +47,5 @@ export type Movie = {
     plot?: string,
     posterUrl?: string
 }
+
+// type genre @TODO
