@@ -3,7 +3,6 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import type { Request, Response, NextFunction, ErrorRequestHandler, Express } from 'express';
 import { config } from './config/config';
-
 const app : Express = express();
 
 // Middlewares for parsing requests

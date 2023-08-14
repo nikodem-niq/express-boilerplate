@@ -3,7 +3,7 @@ import type { Request, Response, NextFunction } from "express"
 // Interfaces
 export interface IMoviesController {
     fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<void>,
-    createMovie(req: Request, res: Response, next: NextFunction) : Promise<void>
+    createMovie(req: Request, res: Response, next: NextFunction) : Promise<void>,
 }
 
 export interface IMoviesService {
@@ -48,4 +48,8 @@ export type Movie = {
     posterUrl?: string
 }
 
+export type DatabaseSchema = {
+    genres: Genres[],
+    movies: Movie[]
+}
 // type genre @TODO
