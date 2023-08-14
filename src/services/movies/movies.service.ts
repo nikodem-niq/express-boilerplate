@@ -1,6 +1,6 @@
 import { readFile, writeFile } from "../../helpers/helpers";
 import { DatabaseSchema, Genres, IMoviesService, Movie } from "../../constants/types";
-import { errorLocales } from "../../constants/locales";
+import { messageLocales } from "../../constants/locales";
 import Joi from "joi";
 import { config } from "../../config/config";
 
@@ -25,15 +25,19 @@ class MoviesService implements IMoviesService {
             const { movies } = db;
             movies.push(validatedMovie);
 
-            const writeToDb = await this.writeDatabase(db);
-            console.log(writeToDb)
-            //
-            return validatedMovie;
+            const pushObjectToDatabase = await this.writeDatabase(db);
+            if(pushObjectToDatabase === messageLocales.WRITE_FILE_SUCCESS) {
+                return validatedMovie;
+            } 
+
+            return messageLocales.WRITE_FILE_ERROR;
         } catch(error) {
-            return { error: errorLocales.OBJECT_SCHEMA_VALIDATION_ERROR };
+            return { error: messageLocales.OBJECT_SCHEMA_VALIDATION_ERROR };
         }
     }
 
+    // @ToDo
+    // validating should generate text for each value if error occurs
     private async validateMovie(movie: Movie) : Promise<any> {
         const properMovieSchema = Joi.object({
             id: Joi.number().required(),
@@ -59,7 +63,7 @@ class MoviesService implements IMoviesService {
         try {
             const dbFile : DatabaseSchema = await readFile(config.db_path);
             if(!dbFile) {
-                throw new Error(errorLocales.DATABASE_CONN_ERROR);
+                throw new Error(messageLocales.DATABASE_CONN_ERROR);
             }
             return dbFile;
         } catch(error) {

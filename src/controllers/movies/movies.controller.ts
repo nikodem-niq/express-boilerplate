@@ -1,5 +1,5 @@
 import type { Response, Request, NextFunction } from "express";
-import { errorLocales } from "../../constants/locales";
+import { messageLocales } from "../../constants/locales";
 import { IMoviesController, Genres } from "../../constants/types";
 import moviesService from "../../services/movies/movies.service";
 
@@ -11,7 +11,7 @@ class MoviesController implements IMoviesController {
     async createMovie(req: Request, res: Response, next: NextFunction) : Promise<void> {
         const { genres, title, year, runtime, director, actors, plot, posterUrl } = req.body;
         if(!genres || !title || !runtime || !director || !year) {
-            res.status(400).json({error: errorLocales.PROPERTY_MISSING});
+            res.status(400).json({error: messageLocales.PROPERTY_MISSING});
             return;
         }
 
@@ -24,7 +24,7 @@ class MoviesController implements IMoviesController {
                 };
             });
         } else {
-            res.status(400).json({error: errorLocales.PROPERTY_WRONG_TYPE});
+            res.status(400).json({error: messageLocales.PROPERTY_WRONG_TYPE});
             return;
         }
 
@@ -39,7 +39,7 @@ class MoviesController implements IMoviesController {
             (plot && typeof plot !== 'string') ||
             (posterUrl && typeof posterUrl !== 'string')
         ) {
-            res.status(400).json({error: errorLocales.PROPERTY_WRONG_TYPE});
+            res.status(400).json({error: messageLocales.PROPERTY_WRONG_TYPE});
             return;
         }
 
@@ -52,7 +52,7 @@ class MoviesController implements IMoviesController {
         }
 
         if(!data) {
-            res.status(400).json({error: errorLocales.RESOURCE_ADD_ERROR});
+            res.status(400).json({error: messageLocales.RESOURCE_ADD_ERROR});
             return;
         }
 

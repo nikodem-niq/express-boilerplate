@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { errorLocales } from '../constants/locales';
+import { messageLocales } from '../constants/locales';
 import path from 'path';
 import { DatabaseSchema } from '../constants/types';
 
@@ -15,16 +15,24 @@ export const readFile = async (filePath : string) : Promise<any> => {
         const parsedData = JSON.parse(fileData);
         return parsedData;
     } catch(error) {
-        console.error(errorLocales.READ_FILE_ERROR);
+        console.error(messageLocales.READ_FILE_ERROR);
         return null;
     }
 }
 
-export const writeFile = async (filePath : string, content: DatabaseSchema) : Promise<void> => {
+/**
+ * 
+ * @param filePath 
+ * @param content 
+ * @returns message <string> if file was saved successfully or not
+ */
+export const writeFile = async (filePath : string, content: DatabaseSchema) : Promise<string> => {
     try {
         const pathParsed = path.join(__dirname, '..', '..', filePath);
-        await fs.writeFile(pathParsed, JSON.stringify(content, null, 2), 'utf-8')
+        await fs.writeFile(pathParsed, JSON.stringify(content, null, 2), 'utf-8');
+        return messageLocales.WRITE_FILE_SUCCESS;
     } catch(error) {
-        console.error(errorLocales.WRITE_FILE_ERROR);
+        console.error(messageLocales.WRITE_FILE_ERROR);
+        return messageLocales.WRITE_FILE_ERROR
     }
 }

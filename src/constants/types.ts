@@ -52,4 +52,3 @@ export type DatabaseSchema = {
     genres: Genres[],
     movies: Movie[]
 }
-// type genre @TODO
