@@ -37,14 +37,18 @@ class MoviesService implements IMoviesService {
             if(genres && !duration) {
                 const filteredArray = movies.filter((movie: Movie) => movie.genres.every((genre) => genres.includes(genre)));
                 const sortedArray = filteredArray.sort((a: Movie, b: Movie) => b.genres.length - a.genres.length);
-                const uniqueSortedArray = new Set([...sortedArray]);
                 return sortedArray;
             }
 
             // Both params provided
             if(genres && duration) {
-
+                const filteredArrayByGenres = movies.filter((movie: Movie) => movie.genres.every((genre) => genres.includes(genre)));
+                const filteredArrayByDuration = filteredArrayByGenres.filter((movie : Movie) => (Number(movie.runtime) > Number(duration-10) && Number(movie.runtime) < Number(duration+10)));
+                const sortedArray = filteredArrayByDuration.sort((a: Movie, b: Movie) => b.genres.length - a.genres.length);
+                return sortedArray;
             }
+
+            return null;
 
         } catch(error) {
             console.error(messageLocales.RESOURCE_FETCH_ERROR);
@@ -53,20 +57,20 @@ class MoviesService implements IMoviesService {
     }
 
     async createMovie(genres: Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Promise<any> {
-        const db : DatabaseSchema = await readDatabase();
-        const moviesLength : number = db.movies.length;
-        const movieObject : Movie = {
-            id: moviesLength + 1,
-            title,
-            year,
-            runtime,
-            genres,
-            director,
-            actors,
-            plot,
-            posterUrl
-        }
         try {
+            const db : DatabaseSchema = await readDatabase();
+            const moviesLength : number = db.movies.length;
+            const movieObject : Movie = {
+                id: moviesLength + 1,
+                title,
+                year,
+                runtime,
+                genres,
+                director,
+                actors,
+                plot,
+                posterUrl
+            }
             const validatedMovie = await this.validateMovie(movieObject);
             // Save validated movie to db
             const { movies } = db;

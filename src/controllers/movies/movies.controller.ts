@@ -1,6 +1,6 @@
 import type { Response, Request, NextFunction } from "express";
 import { messageLocales } from "../../constants/locales";
-import { IMoviesController, Genres } from "../../constants/types";
+import { IMoviesController, Genres, Movie } from "../../constants/types";
 import moviesService from "../../services/movies/movies.service";
 
 class MoviesController implements IMoviesController {
@@ -27,7 +27,8 @@ class MoviesController implements IMoviesController {
             return;
         }
 
-        if(genres && !duration) {
+        if(genres) {
+            let sortedMovies : Array<Movie> = [];
             const splittedQuery : Array<string> | Array<Genres> = genres.toString().split(',');
             let matchedGenres : Array<Genres> = []
             if(Array.isArray(splittedQuery)) {
@@ -41,17 +42,17 @@ class MoviesController implements IMoviesController {
                 return;
             }
 
-            const sortedMovies = await moviesService.fetchMovieByParams(matchedGenres);
+            // If duration provided
+            duration ? 
+            sortedMovies = await moviesService.fetchMovieByParams(matchedGenres, Number(duration)) :
+            sortedMovies = await moviesService.fetchMovieByParams(matchedGenres);
+
             if(!sortedMovies) {
                 res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
                 return;
             }
             res.status(200).json(sortedMovies);
             return;
-        }
-
-        if(genres && duration) {
-
         }
 
         res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});

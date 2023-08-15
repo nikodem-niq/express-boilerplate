@@ -1,3 +1,18 @@
+## From repository author
+1. .env file is required with following data:
+- NODE_ENV=development
+- DATABASE_PATH=/data/db_b.json
+- PORT=8080 (optional)
+
+2. How to run the server:
+- git clone this repo
+- with `npm install` install dependencies
+- with `npm run dev:nodemon` start the development server
+
+3. Available routes:
+- /movies/fetch (optional query params: genres<array>, duration<number>)
+- /movies/create (body params required (genres<array>, title<string>, year<number>, runtime<number>, director<string>))
+
 ## The Software House - Node.js Developer recruitment task
 
 Hey there!
