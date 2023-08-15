@@ -10,13 +10,51 @@ class MoviesController implements IMoviesController {
             const randomizedMovie = await moviesService.fetchRandomMovie();
             if(!randomizedMovie) {
                 res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
+                return;
             }
-            
             res.status(200).json(randomizedMovie);
             return;
         }
 
+        if(duration && !genres) {
+            const randomizedMovie = await moviesService.fetchMovieByParams(undefined, Number(duration));
+            if(!randomizedMovie) {
+                res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
+                return;
+            }
 
+            res.status(200).json(randomizedMovie);
+            return;
+        }
+
+        if(genres && !duration) {
+            const splittedQuery : Array<string> | Array<Genres> = genres.toString().split(',');
+            let matchedGenres : Array<Genres> = []
+            if(Array.isArray(splittedQuery)) {
+                splittedQuery.forEach(genre => {
+                    if(Object.values<string>(Genres).includes(genre)) {
+                        matchedGenres.push(genre as Genres);
+                    };
+                });
+            } else {
+                res.status(400).json({error: messageLocales.QUERY_PARAM_ERROR});
+                return;
+            }
+
+            const sortedMovies = await moviesService.fetchMovieByParams(matchedGenres);
+            if(!sortedMovies) {
+                res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
+                return;
+            }
+            res.status(200).json(sortedMovies);
+            return;
+        }
+
+        if(genres && duration) {
+
+        }
+
+        res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
     }
 
     async createMovie(req: Request, res: Response, next: NextFunction) : Promise<void> {

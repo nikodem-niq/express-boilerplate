@@ -1,6 +1,7 @@
 export const messageLocales = {
     PROPERTY_MISSING: "Property is missing",
     PROPERTY_WRONG_TYPE: "Property is wrong typed",
+    QUERY_PARAM_ERROR: "Query param is wrong typed",
 
     RESOURCE_ADD_ERROR: "Error with creating a resource",
     RESOURCE_FETCH_ERROR: "Error with fetching a resource",

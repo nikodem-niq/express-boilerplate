@@ -1,4 +1,4 @@
-import { readFile, writeFile, readDatabase, writeDatabase, randomizeNumber } from "../../helpers/helpers";
+import { readDatabase, writeDatabase, randomizeNumber } from "../../helpers/helpers";
 import { DatabaseSchema, Genres, IMoviesService, Movie } from "../../constants/types";
 import { messageLocales } from "../../constants/locales";
 import Joi from "joi";
@@ -10,9 +10,42 @@ class MoviesService implements IMoviesService {
             const moviesLength : number = db.movies.length;
             const randomizedId = randomizeNumber(1, moviesLength);
             const { movies } = db;
+
             const randomizedMovie = movies.filter((movie : Movie) => movie.id === randomizedId);
             return randomizedMovie;
             
+        } catch(error) {
+            console.error(messageLocales.RESOURCE_FETCH_ERROR);
+            return null;
+        }
+    }
+
+    async fetchMovieByParams(genres? : Genres[], duration? : number) : Promise<any> {
+        try {
+            const db : DatabaseSchema = await readDatabase();
+            const { movies } = db;
+
+            // Only duration provided
+            if(duration && !genres) {
+                const filteredMovies = movies.filter((movie : Movie) => (Number(movie.runtime) > Number(duration-10) && Number(movie.runtime) < Number(duration+10)));
+                const randomizedId = randomizeNumber(0, filteredMovies.length-1);
+                const randomizedMovie = filteredMovies[randomizedId];
+                return randomizedMovie;
+            }
+
+            // Only genres provided
+            if(genres && !duration) {
+                const filteredArray = movies.filter((movie: Movie) => movie.genres.every((genre) => genres.includes(genre)));
+                const sortedArray = filteredArray.sort((a: Movie, b: Movie) => b.genres.length - a.genres.length);
+                const uniqueSortedArray = new Set([...sortedArray]);
+                return sortedArray;
+            }
+
+            // Both params provided
+            if(genres && duration) {
+
+            }
+
         } catch(error) {
             console.error(messageLocales.RESOURCE_FETCH_ERROR);
             return null;
