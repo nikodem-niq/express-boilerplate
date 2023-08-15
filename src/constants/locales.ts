@@ -3,6 +3,7 @@ export const messageLocales = {
     PROPERTY_WRONG_TYPE: "Property is wrong typed",
 
     RESOURCE_ADD_ERROR: "Error with creating a resource",
+    RESOURCE_FETCH_ERROR: "Error with fetching a resource",
     OBJECT_SCHEMA_VALIDATION_ERROR: "Object validation error",
     DATABASE_CONN_ERROR: "Database connection couldnt be established",
     // Helpers messages

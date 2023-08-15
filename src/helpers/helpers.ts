@@ -2,6 +2,30 @@ import fs from 'fs/promises';
 import { messageLocales } from '../constants/locales';
 import path from 'path';
 import { DatabaseSchema } from '../constants/types';
+import { config } from '../config/config';
+
+export const readDatabase = async () : Promise<any> => {
+    try {
+        const dbFile : DatabaseSchema = await readFile(config.db_path);
+        if(!dbFile) {
+            throw new Error(messageLocales.DATABASE_CONN_ERROR);
+        }
+        return dbFile;
+    } catch(error) {
+        console.error(error);
+        return null;
+    }
+}
+
+export const writeDatabase = async (content: DatabaseSchema) : Promise<any> => {
+    try {
+        const writtenFile = await writeFile(config.db_path, content);
+        return writtenFile;
+    } catch(error) {
+        console.error(error);
+        return null;
+    }
+}
 
 /**
  * 
@@ -35,4 +59,10 @@ export const writeFile = async (filePath : string, content: DatabaseSchema) : Pr
         console.error(messageLocales.WRITE_FILE_ERROR);
         return messageLocales.WRITE_FILE_ERROR
     }
+}
+
+export const randomizeNumber = (min: number, max: number) : number => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max-min+1) + min);
 }

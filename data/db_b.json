@@ -2154,40 +2154,55 @@
       "title": "Jadymy",
       "year": 2023,
       "runtime": 120,
-      "genres": [],
+      "genres": [
+        "Comedy",
+        "Horror"
+      ],
       "director": "Pawelsso",
-      "plot": "no siema",
-      "posterUrl": "hatetepe"
+      "actors": "",
+      "plot": "",
+      "posterUrl": "elo"
     },
     {
       "id": 148,
       "title": "Jadymy",
       "year": 2023,
       "runtime": 120,
-      "genres": [],
-      "director": "Pawelsso",
-      "plot": "no siema",
-      "posterUrl": "hatetepe"
+      "genres": [
+        "Comedy",
+        "Horror"
+      ],
+      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
+      "actors": "",
+      "plot": "",
+      "posterUrl": "elo"
     },
     {
       "id": 149,
       "title": "Jadymy",
       "year": 2023,
       "runtime": 120,
-      "genres": [],
-      "director": "Pawelsso",
-      "plot": "no siema",
-      "posterUrl": "hatetepe"
+      "genres": [
+        "Comedy",
+        "Horror"
+      ],
+      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
+      "actors": "",
+      "plot": "",
+      "posterUrl": "elo"
     },
     {
       "id": 150,
       "title": "Jadymy",
       "year": 2023,
       "runtime": 120,
-      "genres": [],
-      "director": "Pawelsso",
-      "plot": "no siema",
-      "posterUrl": "hatetepe"
+      "genres": [
+        "Comedy"
+      ],
+      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
+      "actors": "",
+      "plot": "",
+      "posterUrl": "elo"
     },
     {
       "id": 151,
@@ -2197,7 +2212,10 @@
       "genres": [
         "Comedy"
       ],
-      "director": "Pawelsso"
+      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
+      "actors": "",
+      "plot": "",
+      "posterUrl": "elo"
     },
     {
       "id": 152,
@@ -2205,9 +2223,12 @@
       "year": 2023,
       "runtime": 120,
       "genres": [
-        "Comedy"
+        "Comedy",
+        "Horror"
       ],
-      "director": "Pawelsso",
+      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
+      "actors": "",
+      "plot": "",
       "posterUrl": "elo"
     },
     {
@@ -2216,9 +2237,10 @@
       "year": 2023,
       "runtime": 120,
       "genres": [
-        "Comedy"
+        "Comedy",
+        "Horror"
       ],
-      "director": "Pawelsso",
+      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
       "actors": "",
       "plot": "",
       "posterUrl": "elo"
@@ -2229,9 +2251,10 @@
       "year": 2023,
       "runtime": 120,
       "genres": [
-        "Comedy"
+        "Comedy",
+        "Horror"
       ],
-      "director": "Pawelsso",
+      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
       "actors": "",
       "plot": "",
       "posterUrl": "elo"
@@ -2242,9 +2265,10 @@
       "year": 2023,
       "runtime": 120,
       "genres": [
-        "Comedy"
+        "Comedy",
+        "Horror"
       ],
-      "director": "Pawelsso",
+      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
       "actors": "",
       "plot": "",
       "posterUrl": "elo"
@@ -2255,196 +2279,16 @@
       "year": 2023,
       "runtime": 120,
       "genres": [
-        "Comedy"
+        "Comedy",
+        "Horror"
       ],
-      "director": "Pawelsso",
+      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
       "actors": "",
       "plot": "",
       "posterUrl": "elo"
     },
     {
       "id": 157,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy"
-      ],
-      "director": "Pawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 158,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "Pawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 159,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 160,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 161,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 162,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 163,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 164,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 165,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 166,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 167,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 168,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 169,
-      "title": "Jadymy",
-      "year": 2023,
-      "runtime": 120,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "director": "PawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelssoPawelsso",
-      "actors": "",
-      "plot": "",
-      "posterUrl": "elo"
-    },
-    {
-      "id": 170,
       "title": "Jadymy",
       "year": 2023,
       "runtime": 120,

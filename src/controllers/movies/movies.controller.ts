@@ -5,7 +5,18 @@ import moviesService from "../../services/movies/movies.service";
 
 class MoviesController implements IMoviesController {
     async fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<void> {
-        res.status(200).send('hey fetch')
+        const { duration, genres } = req.query;
+        if(!duration && !genres) {
+            const randomizedMovie = await moviesService.fetchRandomMovie();
+            if(!randomizedMovie) {
+                res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
+            }
+            
+            res.status(200).json(randomizedMovie);
+            return;
+        }
+
+
     }
 
     async createMovie(req: Request, res: Response, next: NextFunction) : Promise<void> {

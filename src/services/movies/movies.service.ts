@@ -1,12 +1,26 @@
-import { readFile, writeFile } from "../../helpers/helpers";
+import { readFile, writeFile, readDatabase, writeDatabase, randomizeNumber } from "../../helpers/helpers";
 import { DatabaseSchema, Genres, IMoviesService, Movie } from "../../constants/types";
 import { messageLocales } from "../../constants/locales";
 import Joi from "joi";
-import { config } from "../../config/config";
 
 class MoviesService implements IMoviesService {
+    async fetchRandomMovie() : Promise<any> {
+        try {
+            const db : DatabaseSchema = await readDatabase();
+            const moviesLength : number = db.movies.length;
+            const randomizedId = randomizeNumber(1, moviesLength);
+            const { movies } = db;
+            const randomizedMovie = movies.filter((movie : Movie) => movie.id === randomizedId);
+            return randomizedMovie;
+            
+        } catch(error) {
+            console.error(messageLocales.RESOURCE_FETCH_ERROR);
+            return null;
+        }
+    }
+
     async createMovie(genres: Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Promise<any> {
-        const db : DatabaseSchema = await this.readDatabase();
+        const db : DatabaseSchema = await readDatabase();
         const moviesLength : number = db.movies.length;
         const movieObject : Movie = {
             id: moviesLength + 1,
@@ -25,7 +39,7 @@ class MoviesService implements IMoviesService {
             const { movies } = db;
             movies.push(validatedMovie);
 
-            const pushObjectToDatabase = await this.writeDatabase(db);
+            const pushObjectToDatabase = await writeDatabase(db);
             if(pushObjectToDatabase === messageLocales.WRITE_FILE_SUCCESS) {
                 return validatedMovie;
             } 
@@ -38,7 +52,7 @@ class MoviesService implements IMoviesService {
 
     // @ToDo
     // validating should generate text for each value if error occurs
-    private async validateMovie(movie: Movie) : Promise<any> {
+    private async validateMovie(movie: Movie) : Promise<Movie> {
         const properMovieSchema = Joi.object({
             id: Joi.number().required(),
             genres: Joi.array().required(),
@@ -57,31 +71,6 @@ class MoviesService implements IMoviesService {
         };
 
         return value;
-    }
-
-    // @ToDo
-    // make readDb and writeDb global (helpers function)
-    private async readDatabase() : Promise<any> {
-        try {
-            const dbFile : DatabaseSchema = await readFile(config.db_path);
-            if(!dbFile) {
-                throw new Error(messageLocales.DATABASE_CONN_ERROR);
-            }
-            return dbFile;
-        } catch(error) {
-            console.error(error);
-            return null;
-        }
-    }
-
-    private async writeDatabase(content: DatabaseSchema) : Promise<any> {
-        try {
-            const writtenFile = await writeFile(config.db_path, content);
-            return writtenFile;
-        } catch(error) {
-            console.error(error);
-            return null;
-        }
     }
 }
 
