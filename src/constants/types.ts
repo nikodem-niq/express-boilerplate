@@ -3,7 +3,7 @@ import type { Request, Response, NextFunction } from "express"
 // Interfaces
 export interface IMoviesController {
     fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<void>,
-    createMovie(req: Request, res: Response, next: NextFunction) : Promise<void>,
+    createMovie(req: Request, res: Response, next: NextFunction) : Promise<Response>,
 }
 
 export interface IMoviesService {

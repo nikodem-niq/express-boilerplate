@@ -1,14 +1,14 @@
-import { readDatabase, writeDatabase, randomizeNumber } from "../../helpers/helpers";
+import { readDatabase, writeDatabase, randomizeNumberInRange } from "../../helpers/helpers";
 import { DatabaseSchema, Genres, IMoviesService, Movie } from "../../constants/types";
 import { messageLocales } from "../../constants/locales";
 import Joi from "joi";
 
 class MoviesService implements IMoviesService {
-    async fetchRandomMovie() : Promise<any> {
+    public async fetchRandomMovie() : Promise<any> {
         try {
             const db : DatabaseSchema = await readDatabase();
             const moviesLength : number = db.movies.length;
-            const randomizedId = randomizeNumber(1, moviesLength);
+            const randomizedId = randomizeNumberInRange(1, moviesLength);
             const { movies } = db;
 
             const randomizedMovie = movies.filter((movie : Movie) => movie.id === randomizedId);
@@ -20,7 +20,7 @@ class MoviesService implements IMoviesService {
         }
     }
 
-    async fetchMovieByParams(genres? : Genres[], duration? : number) : Promise<any> {
+    public async fetchMovieByParams(genres? : Genres[], duration? : number) : Promise<any> {
         try {
             const db : DatabaseSchema = await readDatabase();
             const { movies } = db;
@@ -28,7 +28,7 @@ class MoviesService implements IMoviesService {
             // Only duration provided
             if(duration && !genres) {
                 const filteredMovies = movies.filter((movie : Movie) => (Number(movie.runtime) > Number(duration-10) && Number(movie.runtime) < Number(duration+10)));
-                const randomizedId = randomizeNumber(0, filteredMovies.length-1);
+                const randomizedId = randomizeNumberInRange(0, filteredMovies.length-1);
                 const randomizedMovie = filteredMovies[randomizedId];
                 return randomizedMovie;
             }
@@ -71,14 +71,13 @@ class MoviesService implements IMoviesService {
                 plot,
                 posterUrl
             }
-            const validatedMovie = await this.validateMovie(movieObject);
-            // Save validated movie to db
+
             const { movies } = db;
-            movies.push(validatedMovie);
+            movies.push(movieObject);
 
             const pushObjectToDatabase = await writeDatabase(db);
             if(pushObjectToDatabase === messageLocales.WRITE_FILE_SUCCESS) {
-                return validatedMovie;
+                return movieObject;
             } 
 
             return messageLocales.WRITE_FILE_ERROR;
@@ -89,26 +88,15 @@ class MoviesService implements IMoviesService {
 
     // @ToDo
     // validating should generate text for each value if error occurs
-    private async validateMovie(movie: Movie) : Promise<Movie> {
-        const properMovieSchema = Joi.object({
-            id: Joi.number().required(),
-            genres: Joi.array().required(),
-            title: Joi.string().max(255).required(),
-            year: Joi.number().required(),
-            runtime: Joi.number().required(),
-            director: Joi.string().max(255).required(),
-            actors: Joi.string().optional().default(""),
-            plot: Joi.string().optional().default(""),
-            posterUrl: Joi.string().optional().default(""),
-        })
+    // express-validator
+    /*
+        validating in validators folder
+        create an instance of validator with custom error messages
+        create method in this class for writing to db
+        write to db after validating in controller
+        
 
-        const {error, value} = properMovieSchema.validate(movie);
-        if(error) {
-            throw new Error(error as unknown as string);
-        };
-
-        return value;
-    }
+    */
 }
 
 export default new MoviesService();

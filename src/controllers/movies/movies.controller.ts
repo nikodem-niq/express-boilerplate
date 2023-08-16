@@ -2,9 +2,10 @@ import type { Response, Request, NextFunction } from "express";
 import { messageLocales } from "../../constants/locales";
 import { IMoviesController, Genres, Movie } from "../../constants/types";
 import moviesService from "../../services/movies/movies.service";
+import Joi from "joi";
 
 class MoviesController implements IMoviesController {
-    async fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<void> {
+    public async fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<void> {
         const { duration, genres } = req.query;
         if(!duration && !genres) {
             const randomizedMovie = await moviesService.fetchRandomMovie();
@@ -58,12 +59,8 @@ class MoviesController implements IMoviesController {
         res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
     }
 
-    async createMovie(req: Request, res: Response, next: NextFunction) : Promise<void> {
+    public async createMovie(req: Request, res: Response, next: NextFunction) : Promise<Response> {
         const { genres, title, year, runtime, director, actors, plot, posterUrl } = req.body;
-        if(!genres || !title || !runtime || !director || !year) {
-            res.status(400).json({error: messageLocales.PROPERTY_MISSING});
-            return;
-        }
 
         // Genres parsing
         let matchedGenres : Array<Genres> = []
@@ -74,39 +71,20 @@ class MoviesController implements IMoviesController {
                 };
             });
         } else {
-            res.status(400).json({error: messageLocales.PROPERTY_WRONG_TYPE});
-            return;
+            return res.status(400).json({error: messageLocales.PROPERTY_WRONG_TYPE});
         }
-
-        // Params parsing
-        if(
-            matchedGenres.length === 0 ||
-            typeof title !== 'string' ||
-            typeof year !== 'number' ||
-            typeof runtime !== 'number' ||
-            typeof director !== 'string' ||
-            (actors && typeof actors !== 'string') ||
-            (plot && typeof plot !== 'string') ||
-            (posterUrl && typeof posterUrl !== 'string')
-        ) {
-            res.status(400).json({error: messageLocales.PROPERTY_WRONG_TYPE});
-            return;
-        }
-
         
         const data = await moviesService.createMovie(matchedGenres, title, year, runtime, director, actors, plot, posterUrl);
 
         if(data.error) {
-            res.status(400).json({error: data.error});
-            return;
+            return res.status(400).json({error: data.error});
         }
 
         if(!data) {
-            res.status(400).json({error: messageLocales.RESOURCE_ADD_ERROR});
-            return;
+            return res.status(400).json({error: messageLocales.RESOURCE_ADD_ERROR});
         }
 
-        res.status(200).json(data);
+        return res.status(200).json(data);
     }
 }
 
