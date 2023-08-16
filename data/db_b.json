@@ -2589,6 +2589,20 @@
       "actors": "",
       "plot": "",
       "posterUrl": ""
+    },
+    {
+      "id": 181,
+      "title": "Test movie",
+      "year": 2016,
+      "runtime": 90,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "director": "Test director",
+      "actors": "",
+      "plot": "",
+      "posterUrl": ""
     }
   ]
 }
