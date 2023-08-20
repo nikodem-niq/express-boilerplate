@@ -2,30 +2,25 @@ import type { Response, Request, NextFunction } from "express";
 import { messageLocales } from "../../constants/locales";
 import { IMoviesController, Genres, Movie } from "../../constants/types";
 import moviesService from "../../services/movies/movies.service";
-import Joi from "joi";
 
 class MoviesController implements IMoviesController {
-    public async fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<void> {
+    public async fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<Response> {
         const { duration, genres } = req.query;
         if(!duration && !genres) {
             const randomizedMovie = await moviesService.fetchRandomMovie();
             if(!randomizedMovie) {
-                res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
-                return;
+                return res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
             }
-            res.status(200).json(randomizedMovie);
-            return;
+            return res.status(200).json(randomizedMovie);
         }
 
         if(duration && !genres) {
             const randomizedMovie = await moviesService.fetchMovieByParams(undefined, Number(duration));
             if(!randomizedMovie) {
-                res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
-                return;
+                return res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
             }
 
-            res.status(200).json(randomizedMovie);
-            return;
+            return res.status(200).json(randomizedMovie);
         }
 
         if(genres) {
@@ -39,8 +34,7 @@ class MoviesController implements IMoviesController {
                     };
                 });
             } else {
-                res.status(400).json({error: messageLocales.QUERY_PARAM_ERROR});
-                return;
+                return res.status(400).json({error: messageLocales.QUERY_PARAM_ERROR});
             }
 
             // If duration provided
@@ -49,14 +43,12 @@ class MoviesController implements IMoviesController {
             sortedMovies = await moviesService.fetchMovieByParams(matchedGenres);
 
             if(!sortedMovies) {
-                res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
-                return;
+                return res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
             }
-            res.status(200).json(sortedMovies);
-            return;
+            return res.status(200).json(sortedMovies);
         }
 
-        res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
+        return res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
     }
 
     public async createMovie(req: Request, res: Response, next: NextFunction) : Promise<Response> {
