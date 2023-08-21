@@ -8,6 +8,7 @@
 - git clone this repo
 - with `npm install` install dependencies
 - with `npm run dev:nodemon` start the development server
+- with `npm run build` then `npm run start` start the built project
 
 3. Available routes:
 - /movies/fetch (optional query params: genres<array>, duration<number>)

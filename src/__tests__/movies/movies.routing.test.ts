@@ -1,6 +1,6 @@
 // import moviesController from '../src/controllers/movies/movies.controller';
-import moviesService from '../../src/services/movies/movies.service';
-import app from '../../src/app';
+import moviesService from '../../services/movies/movies.service';
+import app from '../../app';
 import request from 'supertest';
 
 // env for tests purposes

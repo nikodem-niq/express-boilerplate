@@ -4,6 +4,13 @@ import { IMoviesController, Genres, Movie } from "../../constants/types";
 import moviesService from "../../services/movies/movies.service";
 
 class MoviesController implements IMoviesController {
+/**
+ * GET /movies/fetch?duration,genres
+ * @param req 
+ * @param res 
+ * @param next 
+ * @returns random movie when no query parameters, array of movies when parameters provided
+ */
     public async fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<Response> {
         const { duration, genres } = req.query;
         if(!duration && !genres) {
@@ -51,6 +58,13 @@ class MoviesController implements IMoviesController {
         return res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
     }
 
+/**
+ * POST /movies/create
+ * @param req 
+ * @param res 
+ * @param next 
+ * @returns created movie object on 200, error object on 400
+ */
     public async createMovie(req: Request, res: Response, next: NextFunction) : Promise<Response> {
         const { genres, title, year, runtime, director, actors, plot, posterUrl } = req.body;
 
@@ -67,10 +81,6 @@ class MoviesController implements IMoviesController {
         }
         
         const data = await moviesService.createMovie(matchedGenres, title, year, runtime, director, actors, plot, posterUrl);
-
-        if(data.error) {
-            return res.status(400).json({error: data.error});
-        }
 
         if(!data) {
             return res.status(400).json({error: messageLocales.RESOURCE_ADD_ERROR});

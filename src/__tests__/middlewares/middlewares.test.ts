@@ -1,7 +1,7 @@
 import request from 'supertest';
 import express, { Request, Response, NextFunction } from 'express';
-import { schemaValidator } from '../../src/middlewares/schemaValidator'; 
-import schemas from '../../src/schemas/schemas'; 
+import { schemaValidator } from '../../middlewares/schemaValidator'; 
+import schemas from '../../schemas/schemas'; 
 
 const app = express();
 
