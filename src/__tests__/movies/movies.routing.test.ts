@@ -37,7 +37,6 @@ describe('Movies routing', () => {
       expect(parseInt(response.body[0].runtime)).toBeLessThanOrEqual(110);
     })
 
-    // Post 
     const mockedMovieObject = {
       genres: ["Comedy", "Drama"],
       title: "Test movie",
@@ -47,6 +46,7 @@ describe('Movies routing', () => {
     }
 
     test('POST /movies/create should create a movie', async () => {
+      
       const response = await request(app).post('/movies/create').send(
         mockedMovieObject
       );
@@ -56,7 +56,7 @@ describe('Movies routing', () => {
 
     test('POST /movies/create should NOT create a movie (incorrect body)', async () => {
         const mockedMovieObjectWhichShouldFail = {
-          genres: 1,
+          genres: ['wrong1', 'Horror', 'wrong2'],
           title: "morethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100chars",
           director: "morethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100charsmorethan100chars",
           year: 'string',
@@ -70,14 +70,16 @@ describe('Movies routing', () => {
           mockedMovieObjectWhichShouldFail
         );
         expect(response.status).toBe(400);
-        expect(response.body).not.toEqual(expect.objectContaining(mockedMovieObject));
-        expect(response.body.error.details[0].message).toEqual('genres must be an array');
-        expect(response.body.error.details[1].message).toEqual('year must be a number');
-        expect(response.body.error.details[2].message).toEqual('runtime must be a number');
-        expect(response.body.error.details[3].message).toEqual('director length must be less than or equal to 255 characters long');
-        expect(response.body.error.details[4].message).toEqual('actors must be a string');
-        expect(response.body.error.details[5].message).toEqual('plot must be a string');
-        expect(response.body.error.details[6].message).toEqual('posterUrl must be a string');
+        expect(response.body).not.toEqual(expect.objectContaining(mockedMovieObjectWhichShouldFail));
+        expect(response.body.error.details[0].message).toEqual('genres[0] must be one of [Comedy, Fantasy, Crime, Drama, Music, Adventure, History, Thriller, Animation, Family, Mystery, Biography, Action, Film-Noir, Romance, Sci-Fi, War, Western, Horror, Musical, Sport]');
+        expect(response.body.error.details[1].message).toEqual('genres[2] must be one of [Comedy, Fantasy, Crime, Drama, Music, Adventure, History, Thriller, Animation, Family, Mystery, Biography, Action, Film-Noir, Romance, Sci-Fi, War, Western, Horror, Musical, Sport]');
+        expect(response.body.error.details[2].message).toEqual('year must be a number');
+        expect(response.body.error.details[3].message).toEqual('runtime must be a number');
+        expect(response.body.error.details[4].message).toEqual('director length must be less than or equal to 255 characters long');
+        expect(response.body.error.details[5].message).toEqual('actors must be a string');
+        expect(response.body.error.details[6].message).toEqual('plot must be a string');
+        expect(response.body.error.details[7].message).toEqual('posterUrl must be a string');
+        console.log(response.body.error.details)
     })
 
     test('POST /movies/create should NOT create a movie (empty object)', async () => {
@@ -93,5 +95,26 @@ describe('Movies routing', () => {
         expect(response.body.error.details[2].message).toEqual('year is required');
         expect(response.body.error.details[3].message).toEqual('runtime is required');
         expect(response.body.error.details[4].message).toEqual('director is required');
+    })
+
+    test('POST /movies/create should NOT create a movie (empty genres)', async () => {
+      const mockedMovieObjectWhichShouldFail = {
+        genres: ['horor', 'cccomedy', 'drrama'],
+        title: "Title",
+        director: "Director",
+        year: 2012,
+        runtime: 100,
+        actors: 'Actors',
+        posterUrl: 'posterUrl',
+        plot: 'plot'
+      }
+        const response = await request(app).post('/movies/create').send(
+          mockedMovieObjectWhichShouldFail
+        );
+        expect(response.status).toBe(400);
+        expect(response.body).not.toEqual(expect.objectContaining(mockedMovieObject));
+        expect(response.body.error.details[0].message).toEqual('genres[0] must be one of [Comedy, Fantasy, Crime, Drama, Music, Adventure, History, Thriller, Animation, Family, Mystery, Biography, Action, Film-Noir, Romance, Sci-Fi, War, Western, Horror, Musical, Sport]');
+        expect(response.body.error.details[1].message).toEqual('genres[1] must be one of [Comedy, Fantasy, Crime, Drama, Music, Adventure, History, Thriller, Animation, Family, Mystery, Biography, Action, Film-Noir, Romance, Sci-Fi, War, Western, Horror, Musical, Sport]');
+        expect(response.body.error.details[2].message).toEqual('genres[2] must be one of [Comedy, Fantasy, Crime, Drama, Music, Adventure, History, Thriller, Animation, Family, Mystery, Biography, Action, Film-Noir, Romance, Sci-Fi, War, Western, Horror, Musical, Sport]');
     })
 })

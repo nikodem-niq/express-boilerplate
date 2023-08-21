@@ -1,7 +1,7 @@
 ## From repository author
 1. .env file is required with following data:
 - NODE_ENV=development
-- DATABASE_PATH=/data/db_b.json
+- DATABASE_PATH=/data/db.json
 - PORT=8080 (optional)
 
 2. How to run the server:

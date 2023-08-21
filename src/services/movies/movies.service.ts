@@ -126,6 +126,7 @@ class MoviesService implements IMoviesService {
  * @returns movies array filtered and sorted by genres
  */
     private filterMoviesByGenres(movies: Movie[], genres: Genres[]) : Movie[] {
+        console.log(movies,genres)
         const filteredArray = movies.filter(
             (movie: Movie) => 
             movie.genres.every((genre) => 

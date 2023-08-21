@@ -66,20 +66,8 @@ class MoviesController implements IMoviesController {
  */
     public async createMovie(req: Request, res: Response, next: NextFunction) : Promise<Response> {
         const { genres, title, year, runtime, director, actors, plot, posterUrl } = req.body;
-
-        // Genres parsing
-        let matchedGenres : Array<Genres> = []
-        if(Array.isArray(genres)) {
-            genres.forEach(genre => {
-                if(Object.values<string>(Genres).includes(genre)) {
-                    matchedGenres.push(genre);
-                };
-            });
-        } else {
-            return res.status(400).json({error: messageLocales.PROPERTY_WRONG_TYPE});
-        }
         
-        const data = await moviesService.createMovie(matchedGenres, title, year, runtime, director, actors, plot, posterUrl);
+        const data = await moviesService.createMovie(genres, title, year, runtime, director, actors, plot, posterUrl);
 
         if(!data) {
             return res.status(400).json({error: messageLocales.RESOURCE_ADD_ERROR});

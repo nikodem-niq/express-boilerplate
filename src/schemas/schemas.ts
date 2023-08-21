@@ -1,7 +1,9 @@
 import Joi, { ObjectSchema } from "joi";
+import { Genres } from "../constants/types";
 
+const availableGenres = Object.values(Genres)
 const movieSchema = Joi.object({
-    genres: Joi.array().required(),
+    genres: Joi.array().items(Joi.string().valid(...availableGenres)).required(),
     title: Joi.string().max(255).required(),
     year: Joi.number().required(),
     runtime: Joi.number().required(),
