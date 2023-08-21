@@ -4,6 +4,10 @@ import path from 'path';
 import { DatabaseSchema } from '../constants/types';
 import { config } from '../config/config';
 
+/**
+ * 
+ * @returns database content or null if there was an error
+ */
 export const readDatabase = async () : Promise<any> => {
     try {
         const dbFile : DatabaseSchema = await readFile(config.db_path);
@@ -16,7 +20,11 @@ export const readDatabase = async () : Promise<any> => {
         return null;
     }
 }
-
+/**
+ * 
+ * @param content 
+ * @returns message <string> if there was a problem with saving content to file or not
+ */
 export const writeDatabase = async (content: DatabaseSchema) : Promise<any> => {
     try {
         const writtenFile = await writeFile(config.db_path, content);
@@ -61,7 +69,7 @@ export const writeFile = async (filePath : string, content: DatabaseSchema) : Pr
     }
 }
 
-export const randomizeNumber = (min: number, max: number) : number => {
+export const randomizeNumberInRange = (min: number, max: number) : number => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max-min+1) + min);

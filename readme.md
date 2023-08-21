@@ -1,13 +1,14 @@
 ## From repository author
 1. .env file is required with following data:
 - NODE_ENV=development
-- DATABASE_PATH=/data/db_b.json
+- DATABASE_PATH=/data/db.json
 - PORT=8080 (optional)
 
 2. How to run the server:
 - git clone this repo
 - with `npm install` install dependencies
 - with `npm run dev:nodemon` start the development server
+- with `npm run build` then `npm run start` start the built project
 
 3. Available routes:
 - /movies/fetch (optional query params: genres<array>, duration<number>)

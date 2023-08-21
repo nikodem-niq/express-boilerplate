@@ -6,6 +6,7 @@ export const messageLocales = {
     RESOURCE_ADD_ERROR: "Error with creating a resource",
     RESOURCE_FETCH_ERROR: "Error with fetching a resource",
     OBJECT_SCHEMA_VALIDATION_ERROR: "Object validation error",
+    SCHEMA_OBJECT_NOT_FOUND: "Schema for object has not been found",
     DATABASE_CONN_ERROR: "Database connection couldnt be established",
     // Helpers messages
     READ_FILE_ERROR: "Error with reading the file",

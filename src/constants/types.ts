@@ -2,12 +2,14 @@ import type { Request, Response, NextFunction } from "express"
 
 // Interfaces
 export interface IMoviesController {
-    fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<void>,
-    createMovie(req: Request, res: Response, next: NextFunction) : Promise<void>,
+    fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<Response>,
+    createMovie(req: Request, res: Response, next: NextFunction) : Promise<Response>,
 }
 
 export interface IMoviesService {
-    createMovie(genres : Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Promise<Movie>
+    fetchRandomMovie() : Promise<Movie[] | null>,
+    fetchMovieByParams(genres? : Genres[], duration? : number) : Promise<Movie | Movie[] | null>,
+    createMovie(genres : Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Promise<Movie | {error: string}>,
 }
 // Enums
 export enum Genres {

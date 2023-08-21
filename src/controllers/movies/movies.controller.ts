@@ -4,31 +4,34 @@ import { IMoviesController, Genres, Movie } from "../../constants/types";
 import moviesService from "../../services/movies/movies.service";
 
 class MoviesController implements IMoviesController {
-    async fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<void> {
+/**
+ * GET /movies/fetch?duration,genres
+ * @param req 
+ * @param res 
+ * @param next 
+ * @returns random movie when no query parameters, array of movies when parameters provided
+ */
+    public async fetchMovies(req: Request, res: Response, next: NextFunction) : Promise<Response> {
         const { duration, genres } = req.query;
         if(!duration && !genres) {
             const randomizedMovie = await moviesService.fetchRandomMovie();
             if(!randomizedMovie) {
-                res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
-                return;
+                return res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
             }
-            res.status(200).json(randomizedMovie);
-            return;
+            return res.status(200).json(randomizedMovie);
         }
 
         if(duration && !genres) {
             const randomizedMovie = await moviesService.fetchMovieByParams(undefined, Number(duration));
             if(!randomizedMovie) {
-                res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
-                return;
+                return res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
             }
 
-            res.status(200).json(randomizedMovie);
-            return;
+            return res.status(200).json(randomizedMovie);
         }
 
         if(genres) {
-            let sortedMovies : Array<Movie> = [];
+            let sortedMovies : Movie | Movie[] | null = null;
             const splittedQuery : Array<string> | Array<Genres> = genres.toString().split(',');
             let matchedGenres : Array<Genres> = []
             if(Array.isArray(splittedQuery)) {
@@ -38,75 +41,39 @@ class MoviesController implements IMoviesController {
                     };
                 });
             } else {
-                res.status(400).json({error: messageLocales.QUERY_PARAM_ERROR});
-                return;
+                return res.status(400).json({error: messageLocales.QUERY_PARAM_ERROR});
             }
 
             // If duration provided
             duration ? 
             sortedMovies = await moviesService.fetchMovieByParams(matchedGenres, Number(duration)) :
             sortedMovies = await moviesService.fetchMovieByParams(matchedGenres);
-
             if(!sortedMovies) {
-                res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
-                return;
+                return res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
             }
-            res.status(200).json(sortedMovies);
-            return;
+            return res.status(200).json(sortedMovies);
         }
 
-        res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
+        return res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
     }
 
-    async createMovie(req: Request, res: Response, next: NextFunction) : Promise<void> {
+/**
+ * POST /movies/create
+ * @param req 
+ * @param res 
+ * @param next 
+ * @returns created movie object on 200, error object on 400
+ */
+    public async createMovie(req: Request, res: Response, next: NextFunction) : Promise<Response> {
         const { genres, title, year, runtime, director, actors, plot, posterUrl } = req.body;
-        if(!genres || !title || !runtime || !director || !year) {
-            res.status(400).json({error: messageLocales.PROPERTY_MISSING});
-            return;
-        }
-
-        // Genres parsing
-        let matchedGenres : Array<Genres> = []
-        if(Array.isArray(genres)) {
-            genres.forEach(genre => {
-                if(Object.values<string>(Genres).includes(genre)) {
-                    matchedGenres.push(genre);
-                };
-            });
-        } else {
-            res.status(400).json({error: messageLocales.PROPERTY_WRONG_TYPE});
-            return;
-        }
-
-        // Params parsing
-        if(
-            matchedGenres.length === 0 ||
-            typeof title !== 'string' ||
-            typeof year !== 'number' ||
-            typeof runtime !== 'number' ||
-            typeof director !== 'string' ||
-            (actors && typeof actors !== 'string') ||
-            (plot && typeof plot !== 'string') ||
-            (posterUrl && typeof posterUrl !== 'string')
-        ) {
-            res.status(400).json({error: messageLocales.PROPERTY_WRONG_TYPE});
-            return;
-        }
-
         
-        const data = await moviesService.createMovie(matchedGenres, title, year, runtime, director, actors, plot, posterUrl);
-
-        if(data.error) {
-            res.status(400).json({error: data.error});
-            return;
-        }
+        const data = await moviesService.createMovie(genres, title, year, runtime, director, actors, plot, posterUrl);
 
         if(!data) {
-            res.status(400).json({error: messageLocales.RESOURCE_ADD_ERROR});
-            return;
+            return res.status(400).json({error: messageLocales.RESOURCE_ADD_ERROR});
         }
 
-        res.status(200).json(data);
+        return res.status(200).json(data);
     }
 }
 
