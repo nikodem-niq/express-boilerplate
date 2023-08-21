@@ -31,7 +31,7 @@ class MoviesController implements IMoviesController {
         }
 
         if(genres) {
-            let sortedMovies : Array<Movie> = [];
+            let sortedMovies : Movie | Movie[] | null = null;
             const splittedQuery : Array<string> | Array<Genres> = genres.toString().split(',');
             let matchedGenres : Array<Genres> = []
             if(Array.isArray(splittedQuery)) {
@@ -48,7 +48,6 @@ class MoviesController implements IMoviesController {
             duration ? 
             sortedMovies = await moviesService.fetchMovieByParams(matchedGenres, Number(duration)) :
             sortedMovies = await moviesService.fetchMovieByParams(matchedGenres);
-
             if(!sortedMovies) {
                 return res.status(400).json({error: messageLocales.RESOURCE_FETCH_ERROR});
             }

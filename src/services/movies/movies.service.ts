@@ -7,7 +7,7 @@ class MoviesService implements IMoviesService {
  * 
  * @returns random movie
  */
-    public async fetchRandomMovie() : Promise<any> {
+    public async fetchRandomMovie() : Promise<Movie[]> {
         try {
             const db : DatabaseSchema = await readDatabase();
             const moviesLength : number = db.movies.length;
@@ -19,7 +19,7 @@ class MoviesService implements IMoviesService {
             
         } catch(error) {
             console.error(messageLocales.RESOURCE_FETCH_ERROR, error);
-            return null;
+            return [];
         }
     }
 
@@ -29,7 +29,7 @@ class MoviesService implements IMoviesService {
  * @param duration 
  * @returns randomized movie if there are no parameters or filtered movies list by provided parameters
  */
-    public async fetchMovieByParams(genres? : Genres[], duration? : number) : Promise<any> {
+    public async fetchMovieByParams(genres? : Genres[], duration? : number) : Promise<Movie | Movie[]> {
         try {
             const db : DatabaseSchema = await readDatabase();
             const { movies } = db;
@@ -54,11 +54,11 @@ class MoviesService implements IMoviesService {
                 return this.parseDuplicates(filteredMovies);
             }
 
-            return null;
+            return [];
 
         } catch(error) {
             console.error(messageLocales.RESOURCE_FETCH_ERROR, error);
-            return null;
+            return [];
         }
     }
 /**
@@ -73,7 +73,7 @@ class MoviesService implements IMoviesService {
  * @param posterUrl 
  * @returns movieObject if created successfully or undefined if there is a problem with saving to database
  */
-    public async createMovie(genres: Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Promise<any> {
+    public async createMovie(genres: Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Promise<Movie | {error: string}> {
         try {
             const db : DatabaseSchema = await readDatabase();
             const moviesLength : number = db.movies.length;

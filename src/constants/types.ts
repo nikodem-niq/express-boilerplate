@@ -7,9 +7,9 @@ export interface IMoviesController {
 }
 
 export interface IMoviesService {
-    fetchRandomMovie() : Promise<any>,
-    fetchMovieByParams(genres? : Genres[], duration? : number) : Promise<any>,
-    createMovie(genres : Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Promise<Movie>,
+    fetchRandomMovie() : Promise<Movie[] | null>,
+    fetchMovieByParams(genres? : Genres[], duration? : number) : Promise<Movie | Movie[] | null>,
+    createMovie(genres : Genres[], title: string, year: number, runtime: number, director: string, actors?: string, plot?: string, posterUrl?: string) : Promise<Movie | {error: string}>,
 }
 // Enums
 export enum Genres {
